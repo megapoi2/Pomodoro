@@ -1,0 +1,36 @@
+{
+  "name": "pomodoro-timer-vanilla-js",
+  "version": "1.0.0",
+  "description": "A front-end web app that counts down using the pomodoro technique with customizable timer settings. Built with vanilla JS.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/autumnchris/pomodoro-timer-vanilla-js.git"
+  },
+  "author": "autumnchris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/autumnchris/pomodoro-timer-vanilla-js/issues"
+  },
+  "homepage": "https://autumnchris.github.io/pomodoro-timer-vanilla-js",
+  "dependencies": {
+    "normalize.css": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.6",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.0.0",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "webpack": "^5.41.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^4.3.1"
+  }
+}
