@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SettingsModal.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SettingsModal.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Timer } from './Timer';
+
+/**
+   * Create the settings modal
+   * @class
+   */
+const SettingsModal = (() => {
+
+  /**
+   * Handle submit by triggering errors if needed and modifying the time input values to render properly the timer
+   * @fires Timer.renderTimer
+   * @param {object} event - Triggering event
+   * @param {int} workTimerInput - Work time in minutes
+   * @param {int} breakTimerInput - Break length in minutes
+   * @fires event.preventDefault
+   * @fires Timer.renderTimer
+   * @fires closeSettingsModal
+   * @memberof SettingsModal
+   */
+  function handleSubmit(event, workTimerInput, breakTimerInput) {
+    event.preventDefault();
+    removeFormErrorMessage();
+
+    if (isNaN(workTimerInput) || workTimerInput &lt; 1 || workTimerInput >= 61) {
+      renderFormErrorMessage('Work Timer');
+    }
+    else if (isNaN(breakTimerInput) || breakTimerInput &lt; 1 || breakTimerInput >= 61) {
+      renderFormErrorMessage('Break Timer');
+    }
+    else {
+      if (Math.floor(workTimerInput) !== workTimerInput) workTimerInput = Math.floor(workTimerInput);
+      if (Math.floor(breakTimerInput) !== breakTimerInput) breakTimerInput = Math.floor(breakTimerInput);
+      Timer.renderTimer(Timer.renderWorkValue(workTimerInput), Timer.renderBreakValue(breakTimerInput));
+      closeSettingsModal();
+    }
+  }
+
+  /**
+   * open settings modal by generating the innerHTML
+   * @memberof SettingsModal
+   */
+  function openSettingsModal() {
+    const settingsModal = document.createElement('div');
+    settingsModal.classList.add('modal');
+    settingsModal.setAttribute('id', 'modal');
+    settingsModal.innerHTML = `&lt;div class="modal-content">
+      &lt;div class="modal-header">Set Custom Timer (in minutes)&lt;/div>
+      &lt;div class="modal-body">
+        &lt;form class="settings-form" novalidate>
+          &lt;div class="form-group">
+            &lt;label for="work-timer-input">Work:&lt;/label>
+            &lt;input type="text" value="${Timer.renderWorkValue()}" inputmode="numeric" id="work-timer-input" required />
+          &lt;/div>
+          &lt;div class="form-group">
+            &lt;label for="break-timer-input">Break:&lt;/label>
+            &lt;input type="text" value="${Timer.renderBreakValue()}" inputmode="numeric" id="break-timer-input" required />
+          &lt;/div>
+          &lt;div class="button-group">
+            &lt;button type="submit" class="button modal-button submit">Save&lt;/button>
+            &lt;button type="button" class="button modal-button cancel">Cancel&lt;/button>
+          &lt;/div>
+        &lt;/form>
+      &lt;/div>
+    &lt;/div>`;
+
+    document.querySelector('main').insertBefore(settingsModal, document.querySelector('.timer-card'));
+    document.querySelector('body').classList.add('modal-open');
+  }
+
+  /**
+   * close settings modal by removing child and remove class
+   * @memberof SettingsModal
+   */
+  function closeSettingsModal() {
+    const settingsModal = document.getElementById('modal');
+    settingsModal ? document.querySelector('main').removeChild(settingsModal) : null;
+    document.querySelector('body').classList.remove('modal-open');
+  }
+
+  /**
+   * render form error message by adding the error-message class and changing the inner html
+   * @memberof SettingsModal
+   */
+  function renderFormErrorMessage(timer) {
+    const errorMessage = document.createElement('p');
+    errorMessage.classList.add('message', 'error-message');
+    errorMessage.innerHTML = `&lt;span class=" fa fa-exclamation-circle fa-lg fa-fw">&lt;/span> ${timer} must be a number greater than 0 and less than 61.`;
+
+    document.querySelector('#modal .modal-body').appendChild(errorMessage);
+  }
+
+  /**
+   * render form error message by removing the error-message class and removing the child
+   * @memberof SettingsModal
+   */
+  function removeFormErrorMessage() {
+    const errorMessage = document.querySelector('.error-message');
+    errorMessage ? document.querySelector('.modal-body').removeChild(errorMessage) : null;
+  }
+
+  return {
+    handleSubmit,
+    openSettingsModal,
+    closeSettingsModal
+  };
+})();
+
+export { SettingsModal };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="SettingsModal.html">SettingsModal</a></li><li><a href="Timer.html">Timer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Thu May 16 2024 16:13:19 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

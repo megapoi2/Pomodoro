@@ -3,30 +3,30 @@
 input {
   border: 0;
   border-radius: 0;
-  color: change-color($black, $lightness: 20%);
+  color: change-color($primary, $lightness: 20%);
   letter-spacing: 1px;
   line-height: 1.3;
   width: 100%;
   &::-webkit-input-placeholder {
-    color: change-color($black, $lightness: 60%);
+    color: change-color($primary, $lightness: 60%);
   }
   &::-moz-placeholder {
-    color: change-color($black, $lightness: 60%);
+    color: change-color($primary, $lightness: 60%);
   }
   &:-ms-input-placeholder {
-    color: change-color($black, $lightness: 60%);
+    color: change-color($primary, $lightness: 60%);
   }
   &::-ms-input-placeholder {
-    color: change-color($black, $lightness: 60%);
+    color: change-color($primary, $lightness: 60%);
   }
   &::placeholder {
-    color: change-color($black, $lightness: 60%);
+    color: change-color($primary, $lightness: 60%);
   }
 }
 
 // Modal styles
 .modal {
-  background: rgba($black, 0.75);
+  background: rgba($primary, 0.75);
   bottom: 0;
   height: 100%;
   left: 0;
@@ -39,9 +39,9 @@ input {
   .modal-content {
     -webkit-animation: slideIn 0.3s ease-out;
     animation: slideIn 0.3s ease-out;
-    background: change-color($black, $lightness: 100%);
+    background: change-color($primary, $lightness: 100%);
     border-radius: 5px;
-    color: change-color($black, $lightness: 20%);
+    color: change-color($primary, $lightness: 20%);
     font-size: 0.9rem;
     margin: 10% auto;
     max-width: 280px;
@@ -50,7 +50,7 @@ input {
       font-size: inherit;
     }
     .modal-header {
-      border-bottom: 1px solid change-color($black, $lightness: 80%);
+      border-bottom: 1px solid change-color($primary, $lightness: 80%);
       padding: 10px;
       text-align: left;
     }
@@ -72,7 +72,7 @@ input {
         }
         input[type=text] {
           background: transparent;
-          border-bottom: 1px solid change-color($black, $lightness: 20%);
+          border-bottom: 1px solid change-color($primary, $lightness: 20%);
           margin-left: 5px;
           max-width: 40px;
         }
@@ -86,12 +86,12 @@ input {
         .modal-button:hover,
         .modal-button:active,
         .modal-button:focus {
-          background: change-color($black, $lightness: 25%);
-          color: $blue;
+          background: change-color($primary, $lightness: 25%);
+          color: $secondary;
           margin-left: 8px;
           padding: 8px 10px;
           &:hover {
-            background: change-color($black, $lightness: 20%);
+            background: change-color($primary, $lightness: 20%);
           }
         }
       }
