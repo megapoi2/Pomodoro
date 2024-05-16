@@ -1,7 +1,22 @@
 import { Timer } from './Timer';
 
+/**
+   * Create the settings modal
+   * @class
+   */
 const SettingsModal = (() => {
 
+  /**
+   * Handle submit by triggering errors if needed and modifying the time input values to render properly the timer
+   * @fires Timer.renderTimer
+   * @param {object} event - Triggering event
+   * @param {int} workTimerInput - Work time in minutes
+   * @param {int} breakTimerInput - Break length in minutes
+   * @fires event.preventDefault
+   * @fires Timer.renderTimer
+   * @fires closeSettingsModal
+   * @memberof SettingsModal
+   */
   function handleSubmit(event, workTimerInput, breakTimerInput) {
     event.preventDefault();
     removeFormErrorMessage();
@@ -20,6 +35,10 @@ const SettingsModal = (() => {
     }
   }
 
+  /**
+   * open settings modal by generating the innerHTML
+   * @memberof SettingsModal
+   */
   function openSettingsModal() {
     const settingsModal = document.createElement('div');
     settingsModal.classList.add('modal');
@@ -48,12 +67,20 @@ const SettingsModal = (() => {
     document.querySelector('body').classList.add('modal-open');
   }
 
+  /**
+   * close settings modal by removing child and remove class
+   * @memberof SettingsModal
+   */
   function closeSettingsModal() {
     const settingsModal = document.getElementById('modal');
     settingsModal ? document.querySelector('main').removeChild(settingsModal) : null;
     document.querySelector('body').classList.remove('modal-open');
   }
 
+  /**
+   * render form error message by adding the error-message class and changing the inner html
+   * @memberof SettingsModal
+   */
   function renderFormErrorMessage(timer) {
     const errorMessage = document.createElement('p');
     errorMessage.classList.add('message', 'error-message');
@@ -62,6 +89,10 @@ const SettingsModal = (() => {
     document.querySelector('#modal .modal-body').appendChild(errorMessage);
   }
 
+  /**
+   * render form error message by removing the error-message class and removing the child
+   * @memberof SettingsModal
+   */
   function removeFormErrorMessage() {
     const errorMessage = document.querySelector('.error-message');
     errorMessage ? document.querySelector('.modal-body').removeChild(errorMessage) : null;

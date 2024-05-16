@@ -1,3 +1,7 @@
+/**
+   * Create the timer
+   * @class
+   */
 const Timer = (() => {
   let timer;
   let currentSession;
@@ -6,6 +10,12 @@ const Timer = (() => {
   let workTimer;
   let breakTimer;
 
+  /**
+   * Reset the timer & Set session to Work
+   * @param {int} workValue - Work time in minutes
+   * @param {int} breakValue - Break length in minutes
+   * @memberof Timer
+   */
   function resetTimer(workValue, breakValue) {
     clearInterval(timer);
 
@@ -21,16 +31,33 @@ const Timer = (() => {
     document.title = 'Pomodoro Timer';
   }
 
+  /**
+   * Return the work time in minutes or 25 if null
+   * @param {int} workValue - Work time in minutes
+   * @returns {int}
+   * @memberof Timer
+   */
   function renderWorkValue(workValue) {
     workValue ? localStorage.setItem('workValue', JSON.stringify(Number(workValue))) : null;
     return JSON.parse(localStorage.getItem('workValue')) || 25;
   }
 
+  /**
+   * Return the break length in minutes or 5 if null
+   * @param {int} workValue - Work time in minutes
+   * @returns {int}
+   * @memberof Timer
+   */
   function renderBreakValue(breakValue) {
     breakValue ? localStorage.setItem('breakValue', JSON.stringify(Number(breakValue))) : null;
     return JSON.parse(localStorage.getItem('breakValue')) || 5;;
   }
 
+  /**
+   * Toggle the play pause bouton visually
+   * @param {string} show - Can be pause or play
+   * @memberof Timer
+   */
   function togglePlayPause(show) {
     let hide;
     show === 'play' ? hide = 'pause' : show === 'pause' ? hide = 'play' : null;
@@ -48,6 +75,10 @@ const Timer = (() => {
     !document.querySelector(`.timer-buttons .${show}-timer`) ? document.querySelector('.timer-buttons').insertBefore(buttonToShow, document.querySelector('.reset-timer')) : null;
   }
 
+  /**
+   * Start the timer
+   * @memberof Timer
+   */
   function playTimer() {
     let currentTimer;
 
@@ -90,17 +121,36 @@ const Timer = (() => {
     document.title = `${currentSession} – ${currentTimer}`;
   }
 
+  /**
+   * Start the countDown
+   * @fires togglePlayPause
+   * @memberof Timer
+   */
   function countDown() {
     timer = setInterval(playTimer, 1000);
     togglePlayPause('pause');
   }
 
+  /**
+   * Pause the timer and generate a pause sound
+   * @fires togglePlayPause
+   * @memberof Timer
+   */
   function pauseTimer() {
     clearInterval(timer);
     document.querySelector('.audio').pause();
     togglePlayPause('play');
   }
 
+  /**
+   * Render the timer
+   * By Resetting the timer, generating the HTML elements and pausing the timer
+   * @param {int} workValue - Work time in minutes
+   * @param {int} breakValue - Break length in minutes
+   * @fires resetTimer
+   * @fires togglePlayPause
+   * @memberof Timer
+   */
   function renderTimer(workValue, breakValue) {
     resetTimer(workValue, breakValue);
 

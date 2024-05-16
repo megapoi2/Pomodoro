@@ -13,10 +13,10 @@ html {
   letter-spacing: 1px;
   text-align: center;
   body {
-    background: change-color($black, $lightness: 20%);
-    background: -o-linear-gradient(330deg, change-color($black, $lightness: 15%), change-color($black, $lightness: 30%)) fixed;
-    background: linear-gradient(120deg, change-color($black, $lightness: 15%), change-color($black, $lightness: 30%)) fixed;
-    color: change-color($black, $lightness: 100%);
+    background: change-color($primary, $lightness: 20%);
+    background: -o-linear-gradient(330deg, change-color($primary, $lightness: 15%), change-color($primary, $lightness: 30%)) fixed;
+    background: linear-gradient(120deg, change-color($primary, $lightness: 15%), change-color($primary, $lightness: 30%)) fixed;
+    color: change-color($primary, $lightness: 100%);
     min-height: 100%;
     -ms-scroll-chaining: none;
     overscroll-behavior: none;
@@ -29,7 +29,7 @@ html {
       padding-bottom: 6rem;
     }
     footer {
-      background: rgba(change-color($black, $lightness: 5%), 0.2);
+      background: rgba(change-color($primary, $lightness: 5%), 0.2);
       bottom: 0;
       font-size: 0.8rem;
       left: 0;
@@ -62,7 +62,7 @@ a:visited,
 a:hover,
 a:active,
 a:focus {
-  color: $blue;
+  color: $secondary;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -91,15 +91,15 @@ textarea:focus,
 }
 
 .error-message {
-  background: change-color($error-red, $lightness: 95%);
-  border: 1px solid change-color($error-red, $lightness: 90%);
-  color: $error-red;
+  background: change-color($error, $lightness: 95%);
+  border: 1px solid change-color($error, $lightness: 90%);
+  color: $error;
 }
 
 .info-message {
-  background: change-color($info-blue, $lightness: 95%);
-  border: 1px solid change-color($info-blue, $lightness: 90%);
-  color: $info-blue;
+  background: change-color($info, $lightness: 95%);
+  border: 1px solid change-color($info, $lightness: 90%);
+  color: $info;
 }
 
 noscript .info-message {

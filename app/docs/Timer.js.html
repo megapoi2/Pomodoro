@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Timer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Timer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+   * Create the timer
+   * @class
+   */
+const Timer = (() => {
+  let timer;
+  let currentSession;
+  let currentMinutes;
+  let currentSeconds;
+  let workTimer;
+  let breakTimer;
+
+  /**
+   * Reset the timer &amp; Set session to Work
+   * @param {int} workValue - Work time in minutes
+   * @param {int} breakValue - Break length in minutes
+   * @memberof Timer
+   */
+  function resetTimer(workValue, breakValue) {
+    clearInterval(timer);
+
+    timer = null;
+    currentSession = 'Work';
+    currentMinutes = workValue;
+    currentSeconds = 0;
+    workTimer = workValue * 60;
+    breakTimer = breakValue * 60;
+
+    document.querySelector('.audio').pause();
+    document.querySelector('.audio').currentTime = 0;
+    document.title = 'Pomodoro Timer';
+  }
+
+  /**
+   * Return the work time in minutes or 25 if null
+   * @param {int} workValue - Work time in minutes
+   * @returns {int}
+   * @memberof Timer
+   */
+  function renderWorkValue(workValue) {
+    workValue ? localStorage.setItem('workValue', JSON.stringify(Number(workValue))) : null;
+    return JSON.parse(localStorage.getItem('workValue')) || 25;
+  }
+
+  /**
+   * Return the break length in minutes or 5 if null
+   * @param {int} workValue - Work time in minutes
+   * @returns {int}
+   * @memberof Timer
+   */
+  function renderBreakValue(breakValue) {
+    breakValue ? localStorage.setItem('breakValue', JSON.stringify(Number(breakValue))) : null;
+    return JSON.parse(localStorage.getItem('breakValue')) || 5;;
+  }
+
+  /**
+   * Toggle the play pause bouton visually
+   * @param {string} show - Can be pause or play
+   * @memberof Timer
+   */
+  function togglePlayPause(show) {
+    let hide;
+    show === 'play' ? hide = 'pause' : show === 'pause' ? hide = 'play' : null;
+
+    const buttonToShow = document.createElement('button');
+    const buttonToHide = document.querySelector(`.timer-buttons .${hide}-timer`);
+
+    buttonToShow.setAttribute('type', 'button');
+    buttonToShow.classList.add('button', 'timer-button', `${show}-timer`);
+    buttonToShow.setAttribute('aria-label', show);
+    buttonToShow.setAttribute('title', show.replace(show.charAt(0), show.charAt(0).toUpperCase()));
+    buttonToShow.innerHTML = `&lt;span class="fa fa-${show} fa-lg timer-icon">&lt;/span>`;
+
+    buttonToHide ? document.querySelector('.timer-buttons').removeChild(buttonToHide) : null;
+    !document.querySelector(`.timer-buttons .${show}-timer`) ? document.querySelector('.timer-buttons').insertBefore(buttonToShow, document.querySelector('.reset-timer')) : null;
+  }
+
+  /**
+   * Start the timer
+   * @memberof Timer
+   */
+  function playTimer() {
+    let currentTimer;
+
+    if (workTimer > 0) {
+      workTimer--;
+      currentMinutes = parseInt(workTimer / 60, 10);
+      currentSeconds = parseInt(workTimer % 60, 10);
+    }
+    else {
+
+      if (breakTimer === renderBreakValue() * 60 &amp;&amp; currentMinutes === 0 &amp;&amp; currentSeconds === 0) {
+        document.querySelector('.audio').play();
+        currentMinutes = renderBreakValue();
+        currentSeconds = 0;
+        currentSession = 'Break';
+      }
+      else {
+
+        if (breakTimer > 0) {
+          breakTimer--;
+          currentMinutes = parseInt(breakTimer / 60, 10);
+          currentSeconds = parseInt(breakTimer % 60, 10);
+        }
+        else {
+          document.querySelector('.audio').play();
+          clearInterval(timer);
+          workTimer = renderWorkValue() * 60;
+          breakTimer = renderBreakValue() * 60;
+          currentMinutes = workTimer / 60;
+          currentSeconds = workTimer % 60;
+          currentSession = 'Work';
+          countDown();
+        }
+      }
+    }
+
+    currentTimer = `${currentMinutes &lt; 10 ? `0${currentMinutes}` : currentMinutes}:${currentSeconds &lt; 10 ? `0${currentSeconds}` : currentSeconds}`;
+    document.querySelector('.session').innerHTML = `${currentSession} Session`;
+    document.querySelector('.timer').innerHTML = currentTimer;
+    document.title = `${currentSession} – ${currentTimer}`;
+  }
+
+  /**
+   * Start the countDown
+   * @fires togglePlayPause
+   * @memberof Timer
+   */
+  function countDown() {
+    timer = setInterval(playTimer, 1000);
+    togglePlayPause('pause');
+  }
+
+  /**
+   * Pause the timer and generate a pause sound
+   * @fires togglePlayPause
+   * @memberof Timer
+   */
+  function pauseTimer() {
+    clearInterval(timer);
+    document.querySelector('.audio').pause();
+    togglePlayPause('play');
+  }
+
+  /**
+   * Render the timer
+   * By Resetting the timer, generating the HTML elements and pausing the timer
+   * @param {int} workValue - Work time in minutes
+   * @param {int} breakValue - Break length in minutes
+   * @fires resetTimer
+   * @fires togglePlayPause
+   * @memberof Timer
+   */
+  function renderTimer(workValue, breakValue) {
+    resetTimer(workValue, breakValue);
+
+    document.querySelector('.timer-card').innerHTML = `
+    &lt;h2 class="session">${currentSession} Session&lt;/h2>
+    &lt;div class="timer">${workValue &lt; 10 ? `0${workValue}` : workValue}:00&lt;/div>`;
+
+    document.querySelector('.timer-buttons').innerHTML = `
+    &lt;button type="button" class="button timer-button reset-timer" aria-label="reset" title="Reset">
+      &lt;span class="fa fa-redo-alt fa-lg timer-icon">&lt;/span>
+    &lt;/button>`;
+
+    togglePlayPause('play');
+  }
+
+  return {
+    timer,
+    renderWorkValue,
+    renderBreakValue,
+    countDown,
+    pauseTimer,
+    renderTimer
+  };
+})();
+
+export { Timer };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="SettingsModal.html">SettingsModal</a></li><li><a href="Timer.html">Timer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Thu May 16 2024 16:13:19 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
