@@ -50,7 +50,7 @@ const Timer = (() => {
    */
   function renderBreakValue(breakValue) {
     breakValue ? localStorage.setItem('breakValue', JSON.stringify(Number(breakValue))) : null;
-    return JSON.parse(localStorage.getItem('breakValue')) || 5;;
+    return JSON.parse(localStorage.getItem('breakValue')) || 5;
   }
 
   /**

@@ -6,18 +6,6 @@ Inspired by [https://autumnchris.github.io/pomodoro-timer-vanilla-js](https://au
 
 ---
 
-## Built With
-* JavaScript
-* [Sass](http://sass-lang.com)
-* HTML5
-* [Webpack](https://webpack.js.org)
-* [Babel](https://babeljs.io)
-* [Normalize.css](https://necolas.github.io/normalize.css)
-* [Font Awesome](https://fontawesome.com)
-* LocalStorage
-* [Wink sound effect](http://www.orangefreesounds.com)
-* [JSDoc](https://github.com/jsdoc/jsdoc?tab=readme-ov-file)
-
 ## Instructions
 
 After forking or cloning, navigate to the repository in your command line and launch the script for create containers:
@@ -26,3 +14,44 @@ docker-compose up -d
 ```
 
 Once the server is running, go to `http://localhost:8880` in your browser.
+
+## For developpers
+
+### To run it localy
+
+Go in the app folder
+
+```
+cd app
+```
+
+install the NPM packages:
+
+```
+npm install
+```
+
+Run the following script in your command line to run the application:
+
+```
+npm start
+```
+
+### To run the tests
+
+After installing the NPM packages run the tests (in the app folder) with :
+
+```
+npm test
+```
+
+### To regenerate the documentation 
+
+After installing the NPM packages run this command (in the app folder) :
+
+
+```
+./node_modules/.bin/jsdoc .\src\ -d docs -r 
+```
+
+Now in the app/docs folder you can now delete the documentation.html file and rename the index.html to documentation.html
