@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    networks:
+      - pomodoro
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    networks:
+      - pomodoro
+    ports:
+      - 8080:8080
+
+  app:
+    image: node
+    container_name: node
+    working_dir: /usr/src/app
+    volumes:
+      - ./app:/usr/src/app
+    command: npm start
+    depends_on:
+      - postgres
+    networks:
+      - pomodoro
+    ports:
+      - "3000:3000"
