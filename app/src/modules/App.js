@@ -18,7 +18,7 @@ const App = (() => {
     document.getElementById('app').innerHTML = `
     <header>
       <div class="settings-button-container">
-        <button type="button" onclick="location.href = './docs/index.html';" class="button documentation-button" aria-label="documentation" title="Documentation">
+        <button type="button" onclick="window.open('documentation.html', '_blank');" class="button documentation-button" aria-label="documentation" title="Documentation">
           <span class="fa fa-solid fa-book"></span>
         </button>
         <button type="button" class="button settings-button" aria-label="settings" title="Settings">

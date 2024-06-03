@@ -2,7 +2,7 @@
 
 A front-end web app that counts down using the pomodoro technique with customizable timer settings. Built with vanilla JS.
 
-Inspired by the [Build a Pomodoro Clock challenge](https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-pomodoro-clock) as part of the curriculum for the [Front End Development Libraries Certification](https://www.freecodecamp.org/learn/front-end-libraries) on [freeCodeCamp](https://www.freecodecamp.org).
+Inspired by [https://autumnchris.github.io/pomodoro-timer-vanilla-js](https://autumnchris.github.io/pomodoro-timer-vanilla-js).
 
 ---
 
@@ -16,10 +16,7 @@ Inspired by the [Build a Pomodoro Clock challenge](https://learn.freecodecamp.or
 * [Font Awesome](https://fontawesome.com)
 * LocalStorage
 * [Wink sound effect](http://www.orangefreesounds.com)
-
-## Demo
-
-View project demo at [https://autumnchris.github.io/pomodoro-timer-vanilla-js](https://autumnchris.github.io/pomodoro-timer-vanilla-js).
+* [JSDoc](https://github.com/jsdoc/jsdoc?tab=readme-ov-file)
 
 ## Instructions
 
