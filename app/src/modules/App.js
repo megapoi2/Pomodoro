@@ -2,12 +2,25 @@ import timerDone from '../assets/audio/timer-done.mp3';
 import { SettingsModal } from './SettingsModal';
 import { Timer } from './Timer';
 
+
+/**
+   * Create the App
+   * @class
+   */
 const App = (() => {
 
+  /**
+   * Generate the html to render the app
+   * @fires Timer.renderTimer
+   * @memberof App
+   */
   function renderApp() {
     document.getElementById('app').innerHTML = `
     <header>
       <div class="settings-button-container">
+        <button type="button" onclick="window.open('documentation.html', '_blank');" class="button documentation-button" aria-label="documentation" title="Documentation">
+          <span class="fa fa-solid fa-book"></span>
+        </button>
         <button type="button" class="button settings-button" aria-label="settings" title="Settings">
           <span class="fa fa-cog settings-icon"></span>
         </button>
@@ -19,7 +32,7 @@ const App = (() => {
       <div class="button-group timer-buttons"></div>
       <audio src="${timerDone}" class="audio">
     </main>
-    <footer>Created by <a href="https://autumnchris.github.io/portfolio" target="_blank">Autumn Bullard</a> &copy; ${new Date().getFullYear()}</footer>`;
+    <footer>Created by <a href="https://autumnchris.github.io/portfolio" target="_blank">Autumn Bullard</a> &copy; ${new Date().getFullYear()} & Modified by Lysandre Le Bigot / Adrien Meunier</footer>`;
 
     Timer.renderTimer(Timer.renderWorkValue(), Timer.renderBreakValue());
 

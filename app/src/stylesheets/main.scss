@@ -32,11 +32,25 @@
   .settings-button:hover,
   .settings-button:active,
   .settings-button:focus {
-    color: $blue;
+    color: $secondary;
     height: 30px;
     width: 30px;
     &:hover {
-      background: rgba(change-color($black, $lightness: 5%), 0.2);
+      background: rgba(change-color($primary, $lightness: 5%), 0.2);
+    }
+    .settings-icon {
+      pointer-events: none;
+    }
+  }
+  .documentation-button,
+  .documentation-button:hover,
+  .documentation-button:active,
+  .documentation-button:focus {
+    color: $secondary;
+    height: 30px;
+    width: 30px;
+    &:hover {
+      background: rgba(change-color($primary, $lightness: 5%), 0.2);
     }
     .settings-icon {
       pointer-events: none;
@@ -52,15 +66,15 @@
   .timer-button:hover,
   .timer-button:active,
   .timer-button:focus {
-    background: $blue;
-    border: 2px solid $blue;
-    color: change-color($black, $lightness: 20%);
+    background: $secondary;
+    border: 2px solid $secondary;
+    color: change-color($primary, $lightness: 20%);
     height: 45px;
     margin: 10px 5px 0;
     width: 45px;
     &:hover {
       background: transparent;
-      color: $blue;
+      color: $secondary;
     }
     .timer-icon {
       pointer-events: none;
@@ -70,7 +84,7 @@
 
 // Timer styles
 .timer-card {
-  background: rgba(change-color($black, $lightness: 5%), 0.2);
+  background: rgba(change-color($primary, $lightness: 5%), 0.2);
   margin: 0 auto;
   max-width: 300px;
   padding: 20px;
@@ -82,7 +96,7 @@
     text-transform: uppercase;
   }
   .timer {
-    color: $blue;
+    color: $secondary;
     font-size: 2.5rem;
   }
 }
