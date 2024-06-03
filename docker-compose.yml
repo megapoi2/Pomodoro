@@ -31,15 +31,15 @@ services:
     volumes:
       - ./app:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm start
+    command: >
+      sh -c "npm install && npm start"
     depends_on:
       - postgres
     networks:
       - pomodoro
     ports:
-      - "3000:3000"
+      - "8880:8880"
     environment:
-      NODE_ENV: development
       DB_HOST: postgres
       DB_USER: ${POSTGRES_USER}
       DB_PASS: ${POSTGRES_PASSWORD}
