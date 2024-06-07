@@ -17,7 +17,7 @@ Once the server is running, go to `http://localhost:8880` in your browser.
 
 ## For developpers
 
-### To run it localy
+### To run it locally
 
 Go in the app folder
 
@@ -55,3 +55,12 @@ After installing the NPM packages run this command (in the app folder) :
 ```
 
 Now in the app/docs folder you can now delete the documentation.html file and rename the index.html to documentation.html
+
+### To run the linter
+
+After installing the NPM packages run this command (in the app folder) :
+
+```
+npx eslint [options] [file|dir|glob]*
+```
+(If there is no result it means there isn't any error)
