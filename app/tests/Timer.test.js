@@ -1,7 +1,6 @@
 import { Timer } from '../src/modules/Timer.js';
 
 describe('Timer module', () => {
-    let mockLocalStorage = {};
     beforeEach(() => {
       document.body.innerHTML = `
         <div class="timer-card"></div>
@@ -39,12 +38,6 @@ describe('Timer module', () => {
       expect(Timer.renderBreakValue()).toBe(5);
     });
 
-  test('playTimer should update the timer correctly', () => {
-    Timer.renderTimer(25, 5);
-    jest.advanceTimersByTime(1000);
-    expect(document.querySelector('.timer').textContent).toBe('25:00');
-  });
-
   test('countDown should start the timer', () => {
     Timer.renderTimer(25, 5);
     Timer.countDown();
@@ -58,5 +51,30 @@ describe('Timer module', () => {
     Timer.pauseTimer();
     jest.advanceTimersByTime(1000);
     expect(document.querySelector('.timer').textContent).toBe('25:00');
+  });
+
+  test('playTimer should switch to break when work timer is 0', () => {
+    Timer.renderTimer(25, 5);
+    Timer.countDown();
+    jest.advanceTimersByTime(1501000); // 25 minute et 1 second in milliseconds
+    expect(document.querySelector('.session').textContent).toBe('Break Session');
+  });
+
+  test('playTimer should count down during break session', () => {
+    Timer.renderTimer(25, 5);
+    Timer.countDown();
+    jest.advanceTimersByTime(1501000); // 1 minute and 1 second in milliseconds
+    jest.advanceTimersByTime(1000);  // 1 second in milliseconds
+    expect(document.querySelector('.timer').textContent).toBe('04:59');
+  });
+
+  test('playTimer should reset after break timer is 0', () => {
+    Timer.renderTimer(25, 5);
+    Timer.countDown();
+    jest.advanceTimersByTime(1501000); // 25 minute et 1 second in milliseconds
+    jest.advanceTimersByTime(301000); // 1 minute and 1 second for break
+    jest.advanceTimersByTime(1000);  // 1 second in milliseconds
+    expect(document.querySelector('.timer').textContent).toBe('24:59');
+    expect(document.querySelector('.session').textContent).toBe('Work Session');
   });
 });
